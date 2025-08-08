@@ -3,3 +3,17 @@
     padding: 0;
     margin: 0;
 }
+
+#character {
+    height: 40px;
+    width: 40px;
+    background-color: darkblue;
+}
+
+#scene {
+    margin: 0 auto;
+    border: 1px solid rgb(203, 194, 194);
+    min-height: 240px;
+    display: flex;
+    flex-direction: column-reverse;
+}

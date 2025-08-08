@@ -5,19 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jumping Game</title>
     <link rel="stylesheet" href="./styles.css">
-    <script src="./script.js"></script>
+    <script src="./script.js" defer></script>
 </head>
 <body>
     <div id="game-container">
-        <div id="character"></div>
-        <div id="floor"></div>
-        <div id="obstacle"></div>
+        <p id="tick"></p>
+        <p id="jump"></p>
+        <button id="play-pause-btn"></button>
+
+        <div id="scene">
+            <!-- <div id="character"></div> -->
+            <!-- <div id="floor"></div> -->
+            <!-- <div id="obstacle"></div> -->
+        </div>
+
         <div id="score-board">
             Score: <span id="score">0</span>
         </div>
+
         <div id="game-over" style="display: none;">
             Game Over!
-            </div
+        </div>
+
+
     </div> 
 </body>
 </html>
