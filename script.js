@@ -151,7 +151,7 @@ function checkCollision(dino, obstaclesArray) {
       gameOver = true;
       backgroundMusic.pause();
       alert(
-        `Game over!\n\nYour dino hit the cactus.\n\nYour score was ${score}.\n\nRefresh the page to play again.`
+        `Game over!\n\nYour dino hit the cactus.\n\nYour score was ${score}.`
       );
       playPause.textContent = "Restart";
     }
