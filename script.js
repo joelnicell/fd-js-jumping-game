@@ -203,10 +203,15 @@ function gameLoop(timeStamp) {
   if (isPlaying) {
 
     // If interval is triggered, create a new obstacle.
-    if (time > nextInterval && obstacles.length < MAX_OBJECTS) {
-      obstacles.push(new Obstacle());
+    if (time > nextInterval) {
       nextInterval += generateRandomTimeInterval();
-      console.log("time: ", time, "nextInterval: ", nextInterval);
+
+      if (obstacles.length < MAX_OBJECTS) {
+        obstacles.push(new Obstacle());
+      }
+
+      // console.log("time: ", time, "nextInterval: ", nextInterval);
+
     }
 
     dinosaur.update();
