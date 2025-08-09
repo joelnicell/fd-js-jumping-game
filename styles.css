@@ -28,40 +28,6 @@ body {
   text-align: center;
 }
 
-/* Dino in css */
-/* #character {
-  height: 40px;
-  width: 60px;
-  background-color: #4CAF50;
-  border-radius: 10px 10px 5px 5px;
-  position: absolute;
-  bottom: 0;
-  left: 50px;
-  z-index: 2;
-}
-
-#character::before {
-  content: '';
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  width: 8px;
-  height: 8px;
-  background-color: white;
-  border-radius: 50%;
-}
-
-#character::after {
-  content: '';
-  position: absolute;
-  top: 10px;
-  left: 11px;
-  width: 4px;
-  height: 4px;
-  background-color: black;
-  border-radius: 50%;
-} */
-
 /* Dino as a sprite */
 
 #character {
@@ -71,11 +37,13 @@ body {
   bottom: 0;
   left: 50px;
   z-index: 2;
+  user-select: none;
 }
 
 #character img {
   object-fit: contain;
   width: 100%;
+  user-select: none;
 }
 
 #scene {
@@ -99,7 +67,7 @@ main {
   padding-right: 5%;
 }
 
-#obstacle {
+.obstacle {
   position: absolute;
   bottom: 0;
   right: 0;
@@ -107,9 +75,10 @@ main {
   height: 40px;
   display: flex;
   justify-content: center;
+  user-select: none;
 }
 
-#obstacle img {
+.obstacle img {
   height: 120%;
   width: 110%;
   object-fit: fill;
@@ -198,4 +167,9 @@ footer {
   margin-bottom: 15px;
   text-shadow: 1px 1px 0 #000;
 }
+
+
+
+
+
 
