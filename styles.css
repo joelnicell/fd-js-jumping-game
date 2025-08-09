@@ -2,6 +2,25 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  background-color: #94dc95;
+}
+
+.game-header {
+  font-family: monospace;
+  display: flex;
+  padding-top: 2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-bottom: 4rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.game-introduction {
+  font-family: monospace;
+  display: grid;
+  justify-content: center;
+  text-align: center;
 }
 
 /* Dino in css */
@@ -91,8 +110,7 @@ footer {
   align-items: center;
   font-size: small;
   text-align: center;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-top: 13rem;
   font-size: 1rem;
 }
 
