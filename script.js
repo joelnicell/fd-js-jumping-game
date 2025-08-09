@@ -1,10 +1,12 @@
 // ===== Constants =====
 let tick = 0;
-let isPlaying = true;
+let isPlaying = false;
 let speed = 5;
 const MAX_OBJECTS = 3;
 const MAX_SPEED = 12;
 let score = 0;
+const gravity = 0.5;
+
 
 // ===== HTML Elements =====
 
@@ -14,11 +16,25 @@ const playPause = document.querySelector("#play-pause-btn"); // doesn't work yet
 const scene = document.querySelector("#scene");
 const dinosaurSprite = document.querySelector("#character");
 
+const backgroundMusic = new Audio('./assets/music.mp3');
+backgroundMusic.loop = true;
+backgroundMusic.volume = 0.3;
+
 const scoreElement = document.querySelector("#score");
 scoreElement.textContent = `Score: ${score}`;
 
 clockElement.textContent = tick;
 playPause.textContent = isPlaying ? "Is Playing" : "Is Paused";
+
+// ==== Display update ====
+
+function updateDisplay(time = 0, height = 0, velocity = 0) {
+  clockElement.textContent = `Time: ${time.toFixed(2)} seconds`;
+  jumpElement.textContent = `Height: ${height.toFixed(
+    1
+  )} cm. Velocity: ${velocity.toFixed(1)} cm/s`;
+}
+updateDisplay(0, 0, 0);
 
 // ===== Classes =====
 
@@ -80,16 +96,16 @@ class Obstacle {
     // adding img to parent
     const imgElement = document.createElement("img");
     imgElement.src = "./assets/cactus.png";
+    imgElement.style.width = "100%";
+    imgElement.style.height = "100%";
     parent.appendChild(imgElement);
     scene.appendChild(parent);
     this.sprite = parent;
-
     this.box = this.sprite.getBoundingClientRect();
-
     this.isDead = false;
-
   }
 
+  
   update() {
     this.x -= speed;
     this.sprite.style.left = `${this.x}px`;
@@ -131,6 +147,7 @@ function checkCollision(dino, obstaclesArray) {
   obstacleRectangles.forEach((obstacleRect) => {
     if (isColliding(dinoRect, obstacleRect)) {
       isPlaying = false;
+      backgroundMusic.pause();
       alert(
         `Game over!\n\nYour dino hit the cactus.\n\nYour score was ${score}.\n\nRefresh the page to play again.`
       );
@@ -153,14 +170,26 @@ document.addEventListener("keydown", (e) => {
 
 document.addEventListener("mousedown", () => dinosaur.jump());
 
-playPause.addEventListener("click", (e) => {
+playPause.addEventListener("click", () => {
   if (isPlaying) {
     playPause.textContent = "Is Paused";
     isPlaying = false;
+    backgroundMusic.pause();
   } else {
     playPause.textContent = "Is Playing";
     isPlaying = true;
+    backgroundMusic.play();
     requestAnimationFrame(gameLoop);
+  }
+});
+
+window.addEventListener("click", function startGame() {
+  if (!isPlaying) {
+    isPlaying = true;
+    backgroundMusic.play().catch(() => {});
+    requestAnimationFrame(gameLoop);
+    playPause.textContent = "Is Playing";
+    window.removeEventListener("click", startGame);
   }
 });
 
@@ -186,15 +215,18 @@ function gameLoop(timeStamp) {
       if (obstacle.isDead) {
         obstacles.shift(); // remove object from the array
       }
-    })
+    });
+    
     checkCollision(dinosaur, obstacles);
 
-    clockElement.textContent = "Time: " + time.toFixed(2);
+    updateDisplay(time, -dinosaur.y, dinosaur.vy);
+
+    /*clockElement.textContent = "Time: " + time.toFixed(2);
     jumpElement.textContent =
       "Height: " +
       (-dinosaur.y).toFixed(1) +
       ". Velocity: " +
-      dinosaur.vy.toFixed(1);
+      dinosaur.vy.toFixed(1);*/
 
     requestAnimationFrame(gameLoop);
   }
