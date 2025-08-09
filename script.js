@@ -7,7 +7,7 @@ const gravity = 0.5;
 
 const clockElement = document.querySelector("#tick");
 const jumpElement = document.querySelector("#jump");
-const playPause = document.querySelector("#play-pause-btn"); // doesn't work yet
+const playPause = document.querySelector("#play-pause-btn"); 
 const scene = document.querySelector("#scene");
 
 function updateDisplay(time = 0, height = 0, velocity = 0) {
@@ -102,8 +102,8 @@ function updateObstacle() {
     scoreElement.textContent = `Score: ${score}`;
 
     // Randomize the obstacle size
-    const newWidth = 40 + Math.random() * 20; // width will be between 40px and 60px
-    const newHeight = 40 + Math.random() * 30; // height will be between 40px and 70px
+    const newWidth = 40 + Math.random() * 20; 
+    const newHeight = 40 + Math.random() * 30; 
     obstacle.style.width = `${newWidth}px`;
     obstacle.style.height = `${newHeight}px`
   }
