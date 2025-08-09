@@ -4,7 +4,8 @@
   margin: 0;
 }
 
-#character {
+/* Dino in css */
+/* #character {
   height: 40px;
   width: 60px;
   background-color: #4CAF50;
@@ -14,7 +15,6 @@
   left: 50px;
   z-index: 2;
 }
-
 
 #character::before {
   content: '';
@@ -36,6 +36,22 @@
   height: 4px;
   background-color: black;
   border-radius: 50%;
+} */
+
+/* Dino as a sprite */
+
+#character {
+  height: 70px;
+  width: 70px;
+  position: absolute;
+  bottom: 0;
+  left: 50px;
+  z-index: 2;
+}
+
+#character img {
+  object-fit: contain;
+  width: 100%;
 }
 
 #scene {
@@ -61,8 +77,14 @@ main {
   bottom: 0;
   right: 0;
   width: 40px;
-  height: 60px;
-  background-color: transparent;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+#obstacle img {
+  height: 100%;
+  object-fit: fill;
 }
 
 footer {
