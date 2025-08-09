@@ -6,6 +6,7 @@ const MAX_OBJECTS = 3;
 const MAX_SPEED = 12;
 let score = 0;
 const gravity = 0.5;
+let gameOver = false;
 
 
 // ===== HTML Elements =====
@@ -147,11 +148,12 @@ function checkCollision(dino, obstaclesArray) {
   obstacleRectangles.forEach((obstacleRect) => {
     if (isColliding(dinoRect, obstacleRect)) {
       isPlaying = false;
+      gameOver = true;
       backgroundMusic.pause();
       alert(
         `Game over!\n\nYour dino hit the cactus.\n\nYour score was ${score}.\n\nRefresh the page to play again.`
       );
-      playPause.textContent = "Game Over!";
+      playPause.textContent = "Restart";
     }
   })
 }
@@ -172,7 +174,10 @@ document.addEventListener("keydown", (e) => {
 document.addEventListener("mousedown", () => dinosaur.jump());
 
 playPause.addEventListener("click", () => {
-  if (isPlaying) {
+  if (gameOver) {
+    reset();
+    playPause.textContent = "Is Paused";
+  } else if (isPlaying) {
     playPause.textContent = "Is Paused";
     isPlaying = false;
     backgroundMusic.pause();
@@ -200,8 +205,8 @@ const obstacles = [];
 obstacles.push(new Obstacle());
 
 function gameLoop(timeStamp) {
-  const time = (timeStamp / 1000);
   if (isPlaying) {
+    const time = (timeStamp / 1000);
 
     // If interval is triggered, create a new obstacle.
     if (time > nextInterval) {
@@ -236,6 +241,20 @@ function gameLoop(timeStamp) {
 
     requestAnimationFrame(gameLoop);
   }
+}
+
+function reset() {
+  tick = 0;
+  isPlaying = false;
+  nextInterval = generateRandomTimeInterval();
+  speed = 5;
+  score = 0;
+  gameOver = false;
+  obstacles.length = 0;
+  const currentObstacles = document.querySelectorAll(".obstacle");
+  currentObstacles.forEach((o) => {
+    o.remove();
+  })
 }
 
 gameLoop(tick);
