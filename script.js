@@ -92,16 +92,23 @@ function gameLoop(timeStamp) {
     requestAnimationFrame(gameLoop);
   }
 }
-
 function updateObstacle() {
   const dynamicSpeed = obstacleSpeed + score * 0.8;
   obstacleX -= dynamicSpeed;
+
   if (obstacleX < -obstacle.offsetWidth) {
     obstacleX = window.innerWidth;
     score++;
     scoreElement.textContent = `Score: ${score}`;
+
+    // Randomize the obstacle size
+    const newWidth = 40 + Math.random() * 20; // width will be between 40px and 60px
+    const newHeight = 40 + Math.random() * 30; // height will be between 40px and 70px
+    obstacle.style.width = `${newWidth}px`;
+    obstacle.style.height = `${newHeight}px`
   }
-  obstacle.style.left = `${obstacleX}px`;
+    obstacle.style.left = `${obstacleX}px`;
+
 }
 
 function isColliding(rect1, rect2) {
