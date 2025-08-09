@@ -1,6 +1,6 @@
 // ===== Constants =====
 let tick = 0;
-let isPlaying = true;
+let isPlaying = false;
 const gravity = 0.5;
 
 // ===== HTML Elements =====
@@ -10,8 +10,17 @@ const jumpElement = document.querySelector("#jump");
 const playPause = document.querySelector("#play-pause-btn"); // doesn't work yet
 const scene = document.querySelector("#scene");
 
+function updateDisplay(time = 0, height = 0, velocity = 0) {
+  clockElement.textContent = `Time: ${time.toFixed(2)} seconds`;
+  jumpElement.textContent = `Height: ${height.toFixed(1)} cm. Velocity: ${velocity.toFixed(1)} cm/s`;
+}
+
 // ===== Sprites =====
 const dinosaurSprite = document.querySelector("#character");
+
+const backgroundMusic = new Audio('./assets/music.mp3');
+backgroundMusic.loop = true;
+backgroundMusic.volume = 0.3;
 
 // ===== Obstacle & Score =====
 const obstacle = document.querySelector("#obstacle");
@@ -24,6 +33,7 @@ scoreElement.textContent = `Score: ${score}`;
 
 clockElement.textContent = tick;
 playPause.textContent = isPlaying ? "Is Playing" : "Is Paused";
+updateDisplay(0, 0, 0);
 
 class Dinosaur {
   constructor(sprite) {
@@ -77,12 +87,7 @@ function gameLoop(timeStamp) {
     updateObstacle();
     checkCollision();
 
-    clockElement.textContent = "Time: " + (timeStamp / 1000).toFixed(2);
-    jumpElement.textContent =
-      "Height: " +
-      (-dinosaur.y).toFixed(1) +
-      ". Velocity: " +
-      dinosaur.vy.toFixed(1);
+    updateDisplay(timeStamp / 1000, -dinosaur.y, dinosaur.vy);
 
     requestAnimationFrame(gameLoop);
   }
@@ -113,6 +118,7 @@ function checkCollision() {
   const obstacleRect = obstacle.getBoundingClientRect();
   if (isColliding(dinoRect, obstacleRect)) {
     isPlaying = false;
+    backgroundMusic.pause();
     alert(
       `Game over!\n\nYour dino hit the cactus.\n\nYour score was ${score}.\n\nRefresh the page to play again.`
     );
@@ -127,8 +133,22 @@ playPause.addEventListener("click", (e) => {
   } else {
     playPause.textContent = "Is Playing";
     isPlaying = true;
+    backgroundMusic.play();
     requestAnimationFrame(gameLoop);
   }
 });
+
+window.addEventListener("click", function startGame() {
+  if (!isPlaying) {
+    isPlaying = true;
+    backgroundMusic.play().catch(() => {});
+    requestAnimationFrame(gameLoop);
+    playPause.textContent = "Is Playing";
+    window.removeEventListener("click", startGame);
+  }
+});
+
+
+
 
 gameLoop(tick);
