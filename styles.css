@@ -6,11 +6,11 @@ body {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  background-color: #94dc95;
 }
 
 .game-header {
-  font-family: monospace;
+  font-family: 'Press Start 2P', cursive, monospace;
+  font-size: 70%;
   display: flex;
   padding-top: 2rem;
   padding-left: 2rem;
@@ -21,7 +21,8 @@ body {
 }
 
 .game-introduction {
-  font-family: monospace;
+  font-family: 'Press Start 2P', cursive, monospace;
+  font-size: 70%;
   display: grid;
   justify-content: center;
   text-align: center;
@@ -92,8 +93,8 @@ body {
 }
 
 main {
-  width: 80%;
-  height: 30%;
+  width: auto;
+  height: auto;
   text-align: center;
   justify-content: center;
   padding-left: 5%;
@@ -130,3 +131,79 @@ footer {
   text-align: center;
   justify-content: center;
 }
+
+.header-btn {
+  background-color: #4CAF50; 
+  color: white;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.header-btn:hover {
+  background-color: #45a049;
+  box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+}
+
+.header-btn:active {
+  background-color: #317433;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transform: translateY(1px);
+}
+
+
+#play-pause-btn, #score-board, #tick, #jump {
+  font-family: 'Press Start 2P', cursive, monospace;
+  font-size: 70%;
+  margin-top: 1vw;
+  margin-bottom: 1vw;
+  background-color: #4CAF50; 
+  color: white;
+  padding: 12px 24px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.story-rules {
+  font-family: 'Press Start 2P', cursive, monospace;
+  font-size: 70%;
+  color: #23f723; 
+  background-color: #878181; 
+  border: 3px solid #00FF00; 
+  padding: 20px;
+  margin: 30px auto;
+  max-width: 1000px;
+  text-align: center;
+  box-shadow: 0 0 10px #00FF00;
+  letter-spacing: 2px;
+  line-height: 1.5;
+}
+
+.story-rules h1, .story-rules h2 {
+  text-shadow:
+    1px 1px 0 #000,
+    2px 2px 0 #00FF00;
+  margin-bottom: 10px;
+}
+
+.story-rules p {
+  font-size: 70%;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  text-shadow: 1px 1px 0 #000;
+}
+
+
+
+
+
+
