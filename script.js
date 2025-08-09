@@ -163,6 +163,7 @@ function generateRandomTimeInterval(slowest = 2, fastest = 0.2) {
 // ===== Event Listeners =====
 
 document.addEventListener("keydown", (e) => {
+  e.preventDefault();
   if (e.code === "Space" || e.code === "ArrowUp") {
     dinosaur.jump();
   }
