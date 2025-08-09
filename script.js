@@ -158,8 +158,18 @@ function checkCollision(dino, obstaclesArray) {
   })
 }
 
-function generateRandomTimeInterval(slowest = 2, fastest = 0.2) {
+function generateRandomTimeInterval(slowest = 2, fastest = 0.5) {
   return (Math.random() * (slowest - fastest) + fastest);
+}
+
+function startGame() {
+  if (!isPlaying) {
+    isPlaying = true;
+    backgroundMusic.play().catch(() => {});
+    requestAnimationFrame(gameLoop);
+    playPause.textContent = "Is Playing";
+    window.removeEventListener("click", startGame);
+  }
 }
 
 // ===== Event Listeners =====
@@ -176,7 +186,6 @@ document.addEventListener("mousedown", () => dinosaur.jump());
 playPause.addEventListener("click", () => {
   if (gameOver) {
     reset();
-    playPause.textContent = "Is Paused";
   } else if (isPlaying) {
     playPause.textContent = "Is Paused";
     isPlaying = false;
@@ -189,15 +198,7 @@ playPause.addEventListener("click", () => {
   }
 });
 
-window.addEventListener("click", function startGame() {
-  if (!isPlaying) {
-    isPlaying = true;
-    backgroundMusic.play().catch(() => {});
-    requestAnimationFrame(gameLoop);
-    playPause.textContent = "Is Playing";
-    window.removeEventListener("click", startGame);
-  }
-});
+window.addEventListener("click", startGame);
 
 // ===== Game =====
 let nextInterval = generateRandomTimeInterval();
@@ -208,16 +209,11 @@ function gameLoop(timeStamp) {
   if (isPlaying) {
     const time = (timeStamp / 1000);
 
-    // If interval is triggered, create a new obstacle.
     if (time > nextInterval) {
       nextInterval += generateRandomTimeInterval();
-
       if (obstacles.length < MAX_OBJECTS) {
         obstacles.push(new Obstacle());
       }
-
-      // console.log("time: ", time, "nextInterval: ", nextInterval);
-
     }
 
     dinosaur.update();
@@ -229,32 +225,25 @@ function gameLoop(timeStamp) {
     });
     
     checkCollision(dinosaur, obstacles);
-
     updateDisplay(time, -dinosaur.y, dinosaur.vy);
-
-    /*clockElement.textContent = "Time: " + time.toFixed(2);
-    jumpElement.textContent =
-      "Height: " +
-      (-dinosaur.y).toFixed(1) +
-      ". Velocity: " +
-      dinosaur.vy.toFixed(1);*/
-
     requestAnimationFrame(gameLoop);
   }
 }
 
 function reset() {
   tick = 0;
-  isPlaying = false;
-  nextInterval = generateRandomTimeInterval();
+  nextInterval += generateRandomTimeInterval();
   speed = 5;
   score = 0;
   gameOver = false;
   obstacles.length = 0;
+  backgroundMusic.currentTime = 0;
   const currentObstacles = document.querySelectorAll(".obstacle");
   currentObstacles.forEach((o) => {
     o.remove();
   })
+
+  startGame();
 }
 
 gameLoop(tick);
