@@ -13,7 +13,7 @@ let gameOver = false;
 
 const clockElement = document.querySelector("#tick");
 const jumpElement = document.querySelector("#jump");
-const playPause = document.querySelector("#play-pause-btn"); // doesn't work yet
+const playPause = document.querySelector("#play-pause-btn"); 
 const scene = document.querySelector("#scene");
 const dinosaurSprite = document.querySelector("#character");
 
